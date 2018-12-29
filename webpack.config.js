@@ -7,11 +7,13 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 const html = glob.sync('src/pages/**/*.html').map(path => {
     let name = path.substring(path.lastIndexOf('\/') + 1, path.lastIndexOf('.'))
-    console.log('name', name)
     return new HTMLWebpackPlugin({
         template: path,
         filename: name + '.html',
-        chunks: [name] // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+        chunks: [name], // 页面模板需要加对应的js脚本，如果不加这行则每个页面都会引入所有的js脚本
+        minify: {
+            collapseWhitespace: false // 压缩选项
+        }
     })
 })
 
@@ -31,7 +33,8 @@ module.exports = {
     mode: 'production',
     entry: entries,
     output: {
-        filename: 'static/js/[name].js',
+        filename: 'static/js/[name].bundle.js',
+        chunkFilename: 'static/js/[name].chunk.js',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
@@ -64,7 +67,8 @@ module.exports = {
                         loader: 'postcss-loader',
                         options: {
                             plugins: [
-                                require('autoprefixer')
+                                require('autoprefixer'),
+                                require('cssnano')
                             ]
                         }
                     },
@@ -89,20 +93,27 @@ module.exports = {
             title: 'multi'
         }),
         new MiniCssExtractPlugin({
-            filename: "static/css/[name].css",
-            chunkFilename: "static/css/[id].css"
+            filename: "static/css/[name].bundle.css",
+            chunkFilename: "static/css/[id].chunk.css"
         })
     ],
     optimization: {
-        minimize: true, // 是否压缩打包文件 默认为 true
+        minimize: false, // 是否压缩打包文件 默认为 true
         splitChunks: {
             cacheGroups: {
-                commons: {
-                    name: 'commons',
-                    minSize: 1000,
-                    chunks: 'initial',
+                common: {
+                    name: 'common',
+                    minSize: 1,
+                    chunks: 'all',
+                    priority: 0,
                     minChunks: 2 // 使用含n个及以上的打包为一个文件
                 },
+                vendor: {
+                    name: "vendor",
+                    test: /[\\/]node_modules[\\/]/,
+                    chunks: "all",
+                    priority: 10
+                }
             }
         }
     }
