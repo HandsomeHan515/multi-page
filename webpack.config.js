@@ -4,6 +4,7 @@ const HTMLWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 const html = glob.sync('src/pages/**/*.html').map(path => {
     let name = path.substring(path.lastIndexOf('\/') + 1, path.lastIndexOf('.'))
@@ -49,8 +50,10 @@ module.exports = {
                 include: [
                     path.resolve(__dirname, 'src')
                 ],
+                exclude: /node_modules/,
                 loader: 'babel-loader',
                 options: {
+                    cacheDirectory: true,
                     presets: ["env"],
                     plugins: [
                         'transform-runtime'
@@ -95,10 +98,11 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "static/css/[name].bundle.css",
             chunkFilename: "static/css/[id].chunk.css"
-        })
+        }),
+        new BundleAnalyzerPlugin()
     ],
     optimization: {
-        minimize: false, // 是否压缩打包文件 默认为 true
+        minimize: true, // 是否压缩打包文件 默认为 true
         splitChunks: {
             cacheGroups: {
                 common: {

@@ -26,6 +26,7 @@
     "style-loader": "^0.23.1",
     "transform-runtime": "^0.0.0",
     "webpack": "^4.28.2",
+    "webpack-bundle-analyzer": "^3.0.3",
     "webpack-cli": "^3.1.2",
     "webpack-dashboard": "^2.0.0"
   },
