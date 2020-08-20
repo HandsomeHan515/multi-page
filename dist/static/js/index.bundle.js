@@ -81,41 +81,38 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 3);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
-/* 0 */
+/* 0 */,
+/* 1 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _scss__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
+/* harmony import */ var _scss__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_scss__WEBPACK_IMPORTED_MODULE_0__);
+
+var div = document.createElement('div');
+div.setAttribute('id', 'main');
+div.innerHTML = 'Hello World!';
+document.getElementById('app').appendChild(div);
+var arr = [1, 2, 3, 4];
+console.log(arr.includes(function (e) {
+  return e === 3;
+}));
+
+var func = function func() {
+  console.log(1234);
+};
+
+/***/ }),
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // extracted by mini-css-extract-plugin
 
-/***/ }),
-/* 1 */,
-/* 2 */,
-/* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXTERNAL MODULE: ./src/pages/about/about.scss
-var about = __webpack_require__(0);
-
-// CONCATENATED MODULE: ./src/pages/about/apple.png
-/* harmony default export */ var apple = (__webpack_require__.p + "static/image/apple.png");
-// CONCATENATED MODULE: ./src/pages/about/about.js
-
-
-var el = document.createElement('div');
-el.classList.add('name');
-var about_apple = new Image();
-about_apple.src = apple;
-about_apple.classList.add('inner');
-el.appendChild(about_apple);
-document.body.appendChild(el);
-
 /***/ })
 /******/ ]);
-//# sourceMappingURL=about.bundle.js.map
+//# sourceMappingURL=index.bundle.js.map
